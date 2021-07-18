@@ -30,6 +30,7 @@ export const MoviesView = () => {
         }
 
         setMovies(results)
+
         setStatus('resolved')
       } catch (error) {
         setStatus('rejected')
