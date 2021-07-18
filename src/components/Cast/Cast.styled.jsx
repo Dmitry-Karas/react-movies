@@ -42,3 +42,11 @@ export const Text = styled.p`
     margin-bottom: 10px;
   }
 `
+
+export const NotFoundMessage = styled.p`
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 30px;
+  color: red;
+`

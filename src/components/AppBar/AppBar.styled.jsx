@@ -1,5 +1,5 @@
 import styled from '@emotion/styled/macro'
-import tapeBg from '../../images/tape-bg.png'
+import tapeBg from 'images/tape-bg.png'
 
 export const Header = styled.header`
   display: flex;

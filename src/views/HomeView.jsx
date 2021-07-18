@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import { TmdbAPI } from '../services/apiService'
-import { MovieList } from '../components/MovieList/MovieList'
-import { MovieListLoader } from '../components/MovieList/MovieListLoader'
+import { TmdbAPI } from 'services/apiService'
+import { MovieList } from 'components/MovieList/MovieList'
+import { MovieListLoader } from 'components/MovieList/MovieListLoader'
 
 export const HomeView = () => {
   const [movies, setMovies] = useState([])

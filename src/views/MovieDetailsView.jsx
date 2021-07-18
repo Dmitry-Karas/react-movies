@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import { Route, useParams, useRouteMatch } from 'react-router-dom'
-import { TmdbAPI } from '../services/apiService'
-import { MovieDetails } from '../components/MovieDetails/MovieDetails'
-import { Cast } from '../components/Cast/Cast'
-import { Reviews } from '../components/Reviews/Reviews'
-import { MovieDetailsLoader } from '../components/MovieDetails/MovieDetailsLoader'
+import { TmdbAPI } from 'services/apiService'
+import { MovieDetails } from 'components/MovieDetails/MovieDetails'
+import { Cast } from 'components/Cast/Cast'
+import { Reviews } from 'components/Reviews/Reviews'
+import { MovieDetailsLoader } from 'components/MovieDetails/MovieDetailsLoader'
 
 export const MovieDetailsView = () => {
   const { movieId } = useParams()

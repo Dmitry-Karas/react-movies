@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { TmdbAPI } from '../../services/apiService'
-import { API } from '../../constants/API'
-import defaultImage from '../../images/defaultImage.png'
+import { TmdbAPI } from 'services/apiService'
+import { API } from 'constants/API'
+import { Notify } from 'utils/notifications'
+import defaultImage from 'images/defaultImage.png'
 import {
   ReviewList,
   ReviewItem,
@@ -13,7 +14,6 @@ import {
   NotFoundMessage,
 } from './Reviews.styled'
 import { ReviewsLoader } from './ReviewsLoader'
-import { Notify } from '../../services/notifications'
 
 export const Reviews = () => {
   const [movieReviews, setMovieReviews] = useState([])
@@ -25,25 +25,25 @@ export const Reviews = () => {
     setStatus('pending')
 
     const getMovieReviews = async () => {
-      const reviews = await TmdbAPI.getMovieReviews(movieId)
-      console.log('~ reviews', reviews)
+      try {
+        const reviews = await TmdbAPI.getMovieReviews(movieId)
 
-      if (!reviews.length) {
-        Promise.reject('No reviews found')
+        if (!reviews.length) {
+          throw new Error('No reviews found')
+        }
+
+        setMovieReviews(reviews)
+        setStatus('resolved')
+
+        window.scrollTo({ top: 600, behavior: 'smooth' })
+      } catch (error) {
         setStatus('rejected')
-        return Notify.error('No reviews found')
+
+        Notify.error('No reviews found')
       }
-
-      setMovieReviews(reviews)
-      setStatus('resolved')
-      window.scrollTo({ top: 600, behavior: 'smooth' })
     }
 
-    try {
-      getMovieReviews()
-    } catch (error) {
-      console.log(error)
-    }
+    getMovieReviews()
   }, [movieId])
 
   return (

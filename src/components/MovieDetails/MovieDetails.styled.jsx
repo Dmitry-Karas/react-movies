@@ -3,7 +3,7 @@ import styled from '@emotion/styled/macro'
 export const MovieWrapper = styled.div`
   position: relative;
   display: flex;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 
   &::after {
     content: '';

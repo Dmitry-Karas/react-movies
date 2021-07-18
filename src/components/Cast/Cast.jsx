@@ -1,11 +1,19 @@
-import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { List, Item, Image, Info, TitleH3, Text } from './Cast.styled'
+import { TmdbAPI } from 'services/apiService'
+import { API } from 'constants/API'
+import { Notify } from 'utils/notifications'
+import defaultImage from 'images/defaultImage.png'
+import {
+  List,
+  Item,
+  Image,
+  Info,
+  TitleH3,
+  Text,
+  NotFoundMessage,
+} from './Cast.styled'
 import { CastLoader } from './CastLoader'
-import { TmdbAPI } from '../../services/apiService'
-import { API } from '../../constants/API'
-import defaultImage from '../../images/defaultImage.png'
 
 export const Cast = () => {
   const [actors, setActors] = useState([])
@@ -20,6 +28,11 @@ export const Cast = () => {
     const getMovieCredits = async () => {
       try {
         const credits = await TmdbAPI.getMovieCredits(movieId)
+
+        if (!credits.length) {
+          throw new Error('No credits found')
+        }
+
         const movieActors = credits.map((credit) => {
           return {
             id: credit.id,
@@ -31,9 +44,12 @@ export const Cast = () => {
 
         setActors(movieActors)
         setStatus('resolved')
+
         window.scrollTo({ top: 600, behavior: 'smooth' })
       } catch (error) {
-        console.log(error)
+        setStatus('rejected')
+
+        Notify.error('Cast not found')
       }
     }
 
@@ -43,6 +59,7 @@ export const Cast = () => {
   return (
     <>
       {status === 'pending' && <CastLoader />}
+
       {status === 'resolved' && (
         <List>
           {actors.map(({ id, photo, name, character }) => {
@@ -69,6 +86,12 @@ export const Cast = () => {
             )
           })}
         </List>
+      )}
+
+      {status === 'rejected' && (
+        <NotFoundMessage>
+          We don't have any cast for this movie.
+        </NotFoundMessage>
       )}
     </>
   )
