@@ -24,7 +24,7 @@ export const Image = styled.img`
 `
 
 export const TitleH2 = styled.h2`
-  height: 28px;
+  min-height: 28px;
 
   font-style: normal;
   font-weight: 700;
@@ -37,6 +37,7 @@ export const TitleH2 = styled.h2`
 
 export const Info = styled.div`
   display: flex;
+  justify-content: space-between;
 `
 
 export const Genres = styled.p`

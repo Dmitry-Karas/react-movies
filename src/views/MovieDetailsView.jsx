@@ -7,9 +7,10 @@ import { Reviews } from 'components/Reviews/Reviews'
 import { MovieDetailsLoader } from 'components/MovieDetails/MovieDetailsLoader'
 
 export const MovieDetailsView = () => {
-  const { movieId } = useParams()
   const [movie, setMovie] = useState(null)
   const [status, setStatus] = useState('idle')
+
+  const { movieId } = useParams()
   const { path } = useRouteMatch()
 
   useEffect(() => {
@@ -51,8 +52,8 @@ export const MovieDetailsView = () => {
             posterPath={poster_path}
             title={title}
             originalTitle={original_title}
-            genres={movieGenres}
-            releaseDate={release_date}
+            genres={movieGenres || '\u2015'}
+            releaseDate={release_date || '\u2015'}
             rating={vote_average}
             voteCount={vote_count}
             popularity={popularity}

@@ -28,9 +28,9 @@ export const MovieList = ({ movies }) => {
               id={id}
               posterPath={poster_path}
               title={title}
-              releaseDate={release_date}
+              releaseDate={release_date || '\u2015'}
               rating={vote_average}
-              genres={movieGenres}
+              genres={movieGenres || '\u2015'}
             />
           )
         },
