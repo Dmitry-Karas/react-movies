@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
-import { Route, Link, useRouteMatch } from 'react-router-dom'
-import { SearchForm } from 'components/SearchForm/SearchForm'
-import { MovieList } from 'components/MovieList/MovieList'
+import { Route, useRouteMatch } from 'react-router-dom'
 import { TmdbAPI } from 'services/apiService'
 import { Notify } from 'utils/notifications'
+import SearchForm from 'components/SearchForm/SearchForm'
+import MovieList from 'components/MovieList/MovieList'
 
-export const MoviesView = () => {
+const MoviesView = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const [movies, setMovies] = useState([])
   const [status, setStatus] = useState('idle')
@@ -30,7 +30,6 @@ export const MoviesView = () => {
         }
 
         setMovies(results)
-
         setStatus('resolved')
       } catch (error) {
         setStatus('rejected')
@@ -50,3 +49,5 @@ export const MoviesView = () => {
     </>
   )
 }
+
+export default MoviesView

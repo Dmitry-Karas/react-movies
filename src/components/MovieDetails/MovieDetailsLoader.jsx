@@ -1,6 +1,6 @@
 import ContentLoader from 'react-content-loader'
 
-export const MovieDetailsLoader = (props) => (
+const MovieDetailsLoader = (props) => (
   <ContentLoader
     speed={2}
     width={1024}
@@ -34,3 +34,5 @@ export const MovieDetailsLoader = (props) => (
     <rect x="500" y="340" rx="0" ry="0" width="130" height="40" />
   </ContentLoader>
 )
+
+export default MovieDetailsLoader

@@ -19,7 +19,7 @@ import {
   AdditionalLinksWrapper,
 } from './MovieDetails.styled'
 
-export const MovieDetails = ({
+const MovieDetails = ({
   posterPath,
   title,
   originalTitle,
@@ -114,3 +114,5 @@ MovieDetails.propTypes = {
   popularity: PropTypes.number.isRequired,
   overview: PropTypes.string.isRequired,
 }
+
+export default MovieDetails

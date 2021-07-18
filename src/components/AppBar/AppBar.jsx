@@ -1,10 +1,12 @@
-import { Navigation } from 'components/Navigation/Navigation'
+import Navigation from 'components/Navigation/Navigation'
 import { Header } from './AppBar.styled'
 
-export const AppBar = () => {
+const AppBar = () => {
   return (
     <Header>
       <Navigation />
     </Header>
   )
 }
+
+export default AppBar

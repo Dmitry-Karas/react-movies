@@ -1,10 +1,10 @@
 import PropTypes, { arrayOf } from 'prop-types'
+import MovieItem from 'components/MovieItem/MovieItem'
 import { useState, useEffect } from 'react'
-import { MovieItem } from 'components/MovieItem/MovieItem'
 import { TmdbAPI } from 'services/apiService'
 import { List } from './MovieList.styled'
 
-export const MovieList = ({ movies }) => {
+const MovieList = ({ movies }) => {
   const [genreList, setGenreList] = useState([])
 
   useEffect(() => {
@@ -42,3 +42,5 @@ export const MovieList = ({ movies }) => {
 MovieList.propTypes = {
   movies: arrayOf(PropTypes.object.isRequired).isRequired,
 }
+
+export default MovieList

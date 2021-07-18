@@ -13,9 +13,9 @@ import {
   Text,
   NotFoundMessage,
 } from './Cast.styled'
-import { CastLoader } from './CastLoader'
+import CastLoader from './CastLoader'
 
-export const Cast = () => {
+const Cast = () => {
   const [actors, setActors] = useState([])
   const [status, setStatus] = useState('idle')
   const [isLoaded, setIsLoaded] = useState(false)
@@ -96,3 +96,5 @@ export const Cast = () => {
     </>
   )
 }
+
+export default Cast

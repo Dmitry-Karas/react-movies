@@ -1,7 +1,7 @@
 import { Form, Input, Label, Button } from './SearchForm.styled'
 import { BsSearch } from 'react-icons/bs'
 
-export const SearchForm = ({ onSubmit }) => {
+const SearchForm = ({ onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
@@ -29,3 +29,5 @@ export const SearchForm = ({ onSubmit }) => {
     </Form>
   )
 }
+
+export default SearchForm

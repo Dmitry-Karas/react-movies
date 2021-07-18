@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import { Nav, List, Item } from './Navigation.styled'
 
-export const Navigation = () => {
+const Navigation = () => {
   return (
     <Nav>
       <List>
@@ -29,3 +29,5 @@ export const Navigation = () => {
     </Nav>
   )
 }
+
+export default Navigation

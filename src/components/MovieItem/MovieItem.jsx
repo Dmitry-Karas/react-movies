@@ -5,14 +5,7 @@ import PropTypes from 'prop-types'
 import defaultImage from 'images/defaultImage.png'
 import { Item, Image, TitleH2, Info, Genres, Rating } from './MovieItem.styled'
 
-export const MovieItem = ({
-  id,
-  posterPath,
-  title,
-  genres,
-  releaseDate,
-  rating,
-}) => {
+const MovieItem = ({ id, posterPath, title, genres, releaseDate, rating }) => {
   const [isLoaded, setIsLoaded] = useState(false)
 
   return (
@@ -52,3 +45,5 @@ MovieItem.propTypes = {
   releaseDate: PropTypes.string.isRequired,
   rating: PropTypes.number.isRequired,
 }
+
+export default MovieItem

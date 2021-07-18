@@ -13,9 +13,9 @@ import {
   ReviewContent,
   NotFoundMessage,
 } from './Reviews.styled'
-import { ReviewsLoader } from './ReviewsLoader'
+import ReviewsLoader from './ReviewsLoader'
 
-export const Reviews = () => {
+const Reviews = () => {
   const [movieReviews, setMovieReviews] = useState([])
   const [status, setStatus] = useState('idle')
 
@@ -85,3 +85,5 @@ export const Reviews = () => {
     </>
   )
 }
+
+export default Reviews

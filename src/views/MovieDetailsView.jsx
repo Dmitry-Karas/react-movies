@@ -1,12 +1,17 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import { Route, useParams, useRouteMatch } from 'react-router-dom'
 import { TmdbAPI } from 'services/apiService'
-import { MovieDetails } from 'components/MovieDetails/MovieDetails'
-import { Cast } from 'components/Cast/Cast'
-import { Reviews } from 'components/Reviews/Reviews'
-import { MovieDetailsLoader } from 'components/MovieDetails/MovieDetailsLoader'
+import MovieDetails from 'components/MovieDetails/MovieDetails'
+import MovieDetailsLoader from 'components/MovieDetails/MovieDetailsLoader'
 
-export const MovieDetailsView = () => {
+const Cast = lazy(() =>
+  import('components/Cast/Cast' /* webpackChunkName: "Cast" */),
+)
+const Reviews = lazy(() =>
+  import('components/Reviews/Reviews' /* webpackChunkName: "Reviews" */),
+)
+
+const MovieDetailsView = () => {
   const [movie, setMovie] = useState(null)
   const [status, setStatus] = useState('idle')
 
@@ -59,14 +64,15 @@ export const MovieDetailsView = () => {
             popularity={popularity}
             overview={overview}
           />
+          <Suspense fallback={<h1>loading</h1>}>
+            <Route path={`${path}/cast`}>
+              <Cast />
+            </Route>
 
-          <Route path={`${path}/cast`}>
-            <Cast />
-          </Route>
-
-          <Route path={`${path}/reviews`}>
-            <Reviews />
-          </Route>
+            <Route path={`${path}/reviews`}>
+              <Reviews />
+            </Route>
+          </Suspense>
         </>
       )
 
@@ -74,3 +80,5 @@ export const MovieDetailsView = () => {
       return
   }
 }
+
+export default MovieDetailsView
