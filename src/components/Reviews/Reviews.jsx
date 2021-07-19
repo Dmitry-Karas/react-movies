@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import { TmdbAPI } from 'services/apiService'
-import { API } from 'constants/API'
-import { Notify } from 'utils/notifications'
-import defaultImage from 'images/defaultImage.png'
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { TmdbAPI } from "services/apiService";
+import { API } from "constants/API";
+import { Notify } from "utils/notifications";
+import defaultImage from "images/defaultImage.png";
 import {
   ReviewList,
   ReviewItem,
@@ -12,78 +12,86 @@ import {
   ReviewAuthorName,
   ReviewContent,
   NotFoundMessage,
-} from './Reviews.styled'
-import ReviewsLoader from './ReviewsLoader'
+} from "./Reviews.styled";
+import ReviewsLoader from "./ReviewsLoader";
 
 const Reviews = () => {
-  const [movieReviews, setMovieReviews] = useState([])
-  const [status, setStatus] = useState('idle')
+  const [movieReviews, setMovieReviews] = useState([]);
+  const [status, setStatus] = useState("idle");
+  const [isAvatarLoaded, setIsAvatarLoaded] = useState(false);
 
-  const { movieId } = useParams()
+  const { movieId } = useParams();
 
   useEffect(() => {
-    setStatus('pending')
-
-    const getMovieReviews = async () => {
+    setStatus("pending");
+    (async () => {
       try {
-        const reviews = await TmdbAPI.getMovieReviews(movieId)
+        const reviews = await TmdbAPI.getMovieReviews(movieId);
 
         if (!reviews.length) {
-          throw new Error('No reviews found')
+          Notify.info("No reviews yet");
+
+          throw new Error("No reviews found");
         }
 
-        setMovieReviews(reviews)
-        setStatus('resolved')
+        setMovieReviews(reviews);
+        setStatus("resolved");
 
-        window.scrollTo({ top: 600, behavior: 'smooth' })
+        window.scrollTo({ top: 600, behavior: "smooth" });
       } catch (error) {
-        setStatus('rejected')
+        console.error(error);
 
-        Notify.error('No reviews found')
+        setStatus("rejected");
       }
+    })();
+  }, [movieId]);
+
+  const getAvatar = (avatarPath) => {
+    let avatar = defaultImage;
+
+    if (avatarPath) {
+      avatar = avatarPath.startsWith("/http")
+        ? avatarPath.slice(1)
+        : `${API.IMAGE_URL}/w200/${avatarPath}`;
     }
 
-    getMovieReviews()
-  }, [movieId])
+    return avatar;
+  };
 
   return (
     <>
-      {status === 'pending' && <ReviewsLoader />}
+      {status === "pending" && <ReviewsLoader />}
 
-      {status === 'resolved' && (
+      {status === "resolved" && (
         <ReviewList>
           {movieReviews.map(({ id, author, author_details, content }) => {
-            const avatarPath = author_details.avatar_path
-            let avatar = null
-
-            if (author_details.avatar_path) {
-              avatar = avatarPath.startsWith('/http')
-                ? avatarPath.slice(1)
-                : `${API.IMAGE_URL}/w200/${avatarPath}`
-            } else {
-              avatar = defaultImage
-            }
+            const avatar = getAvatar(author_details.avatar_path);
 
             return (
               <ReviewItem key={id}>
                 <ReviewAuthorWrapper>
-                  <ReviewAuthorAvatar src={avatar} width="50" height="50" />
+                  <ReviewAuthorAvatar
+                    src={isAvatarLoaded ? avatar : defaultImage}
+                    width="50"
+                    height="50"
+                    onLoad={() => setIsAvatarLoaded(true)}
+                  />
                   <ReviewAuthorName>{author}</ReviewAuthorName>
                 </ReviewAuthorWrapper>
                 <ReviewContent>{content}</ReviewContent>
               </ReviewItem>
-            )
+            );
           })}
         </ReviewList>
       )}
 
-      {status === 'rejected' && (
+      {status === "rejected" && (
         <NotFoundMessage>
           We don't have any reviews for this movie.
         </NotFoundMessage>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Reviews
+export default Reviews;

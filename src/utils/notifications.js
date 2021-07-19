@@ -1,55 +1,60 @@
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 const Toast = Swal.mixin({
   toast: true,
-  position: 'top-right',
-  iconColor: 'white',
+  position: "top-right",
+  iconColor: "white",
   customClass: {
-    popup: 'colored-toast',
+    popup: "colored-toast",
   },
   showConfirmButton: false,
-  timer: 3000,
   timerProgressBar: true,
-})
+  width: 420,
+});
 
 export class Notify {
-  static async error(title, message) {
+  static async error(title, text, timer = 3000) {
     await Toast.fire({
-      icon: 'error',
+      icon: "error",
+      timer,
       title,
-      text: message,
-    })
+      text,
+    });
   }
 
-  static async success(title, message) {
+  static async success(title, text, timer = 3000) {
     await Toast.fire({
-      icon: 'success',
+      icon: "success",
+      timer,
       title,
-      text: message,
-    })
+      text,
+    });
   }
 
-  static async warning(title, message) {
+  static async warning(title, text, timer = 3000) {
     await Toast.fire({
-      icon: 'warning',
+      icon: "warning",
+      timer,
       title,
-      text: message,
-    })
+      text,
+    });
   }
 
-  static async info(title, message) {
+  static async info(title, message, timer = 3000) {
     await Toast.fire({
-      icon: 'info',
+      icon: "info",
+      timer,
       title,
       text: message,
-    })
+    });
   }
 
-  static async question(title, message) {
+  static async question(title, message, timer = 3000) {
     await Toast.fire({
-      icon: 'question',
+      icon: "question",
+      timer,
       title,
       text: message,
-    })
+    });
   }
 }

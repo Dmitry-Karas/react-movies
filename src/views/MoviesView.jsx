@@ -1,53 +1,67 @@
-import { useState, useEffect } from 'react'
-import { Route, useRouteMatch } from 'react-router-dom'
-import { TmdbAPI } from 'services/apiService'
-import { Notify } from 'utils/notifications'
-import SearchForm from 'components/SearchForm/SearchForm'
-import MovieList from 'components/MovieList/MovieList'
+import { useState, useEffect } from "react";
+import {
+  Route,
+  useRouteMatch,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
+import { TmdbAPI } from "services/apiService";
+import { Notify } from "utils/notifications";
+import SearchForm from "components/SearchForm/SearchForm";
+import MovieList from "components/MovieList/MovieList";
 
 const MoviesView = () => {
-  const [searchQuery, setSearchQuery] = useState('')
-  const [movies, setMovies] = useState([])
-  const [status, setStatus] = useState('idle')
+  const [searchQuery, setSearchQuery] = useState("");
+  const [movies, setMovies] = useState([]);
+  const [status, setStatus] = useState("idle");
 
-  const { url } = useRouteMatch()
+  const history = useHistory();
+  const location = useLocation();
 
   const handleSubmit = (query) => {
-    setSearchQuery(query)
-  }
+    setSearchQuery(query);
+
+    history.push({ ...location, search: `query=${query}` });
+  };
 
   useEffect(() => {
-    if (!searchQuery) return
+    const query = new URLSearchParams(location.search).get("query");
 
-    const getMovies = async () => {
-      setStatus('pending')
+    query && setSearchQuery(query);
+
+    if (!searchQuery || !query) {
+      setMovies([]);
+      return;
+    }
+    (async () => {
+      setStatus("pending");
 
       try {
-        const results = await TmdbAPI.getMoviesByQuery(searchQuery)
+        const results = await TmdbAPI.getMoviesByQuery(searchQuery);
 
-        if (!results.length) {
-          throw new Error('No results found for this query')
+        if (!results.length && searchQuery) {
+          Notify.error("Oops!", "No results found :(", 2500);
+
+          throw new Error("No results found for this query");
         }
 
-        setMovies(results)
-        setStatus('resolved')
+        setMovies(results);
+        setStatus("resolved");
       } catch (error) {
-        setStatus('rejected')
+        console.log(error);
 
-        Notify.error('No results found')
+        setStatus("rejected");
       }
-    }
-
-    getMovies()
-  }, [searchQuery])
+    })();
+  }, [location.search, searchQuery]);
 
   return (
     <>
       <SearchForm onSubmit={handleSubmit} />
-      {status === 'resolved' && <MovieList movies={movies} />}
+      {status === "resolved" && <MovieList movies={movies} />}
       <Route path="movies" />
     </>
-  )
-}
+  );
+};
 
-export default MoviesView
+export default MoviesView;

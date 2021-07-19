@@ -1,19 +1,26 @@
-import { lazy, Suspense } from 'react'
-import { Route, Switch, Link } from 'react-router-dom'
-import AppBar from './components/AppBar/AppBar'
-import Container from './components/Container/Container'
+import { lazy, Suspense } from "react";
+import {
+  Route,
+  Switch,
+  useRouteMatch,
+  useHistory,
+  useLocation,
+  Link,
+} from "react-router-dom";
+import AppBar from "./components/AppBar/AppBar";
+import Container from "./components/Container/Container";
 
 const HomeView = lazy(() =>
-  import('./views/HomeView' /* webpackChunkName: "HomeView" */),
-)
+  import("./views/HomeView" /* webpackChunkName: "HomeView" */)
+);
 
 const MoviesView = lazy(() =>
-  import('./views/MoviesView' /* webpackChunkName: "MoviesView" */),
-)
+  import("./views/MoviesView" /* webpackChunkName: "MoviesView" */)
+);
 
 const MovieDetailsView = lazy(() =>
-  import('./views/MovieDetailsView' /* webpackChunkName: "MovieDetailsView" */),
-)
+  import("./views/MovieDetailsView" /* webpackChunkName: "MovieDetailsView" */)
+);
 
 const App = () => {
   return (
@@ -41,14 +48,13 @@ const App = () => {
 
           <Route>
             <Container>
-              <h1>404 Page not found :(</h1>
-              <Link to="/">back to home</Link>
+              <HomeView />
             </Container>
           </Route>
         </Switch>
       </Suspense>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

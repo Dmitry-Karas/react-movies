@@ -1,40 +1,60 @@
-import { useState, useEffect, lazy, Suspense } from 'react'
-import { Route, useParams, useRouteMatch } from 'react-router-dom'
-import { TmdbAPI } from 'services/apiService'
-import MovieDetails from 'components/MovieDetails/MovieDetails'
-import MovieDetailsLoader from 'components/MovieDetails/MovieDetailsLoader'
+import { useState, useEffect, lazy, Suspense } from "react";
+import { Route, useParams, useRouteMatch, useHistory } from "react-router-dom";
+import { TmdbAPI } from "services/apiService";
+import MovieDetails from "components/MovieDetails/MovieDetails";
+import MovieDetailsLoader from "components/MovieDetails/MovieDetailsLoader";
+import { Notify } from "utils/notifications";
 
 const Cast = lazy(() =>
-  import('components/Cast/Cast' /* webpackChunkName: "Cast" */),
-)
+  import("components/Cast/Cast" /* webpackChunkName: "Cast" */)
+);
 const Reviews = lazy(() =>
-  import('components/Reviews/Reviews' /* webpackChunkName: "Reviews" */),
-)
+  import("components/Reviews/Reviews" /* webpackChunkName: "Reviews" */)
+);
 
 const MovieDetailsView = () => {
-  const [movie, setMovie] = useState(null)
-  const [status, setStatus] = useState('idle')
+  const [movie, setMovie] = useState(null);
+  const [status, setStatus] = useState("idle");
 
-  const { movieId } = useParams()
-  const { path } = useRouteMatch()
+  const { movieId } = useParams();
+  const { path } = useRouteMatch();
+  const history = useHistory();
 
   useEffect(() => {
-    setStatus('pending')
+    setStatus("pending");
+    (async () => {
+      try {
+        const movie = await TmdbAPI.getMovieDetails(movieId);
 
-    TmdbAPI.getMovieDetails(movieId)
-      .then(setMovie)
-      .then(() => setStatus('resolve'))
-      .catch(console.log)
-  }, [movieId])
+        if (!movie) {
+          history.push("/");
+
+          Notify.warning(
+            "404 Page not found",
+            "You have been redirected to the home page"
+          );
+
+          throw new Error("Movie not found");
+        }
+
+        setMovie(movie);
+        setStatus("resolved");
+      } catch (error) {
+        console.error(error);
+
+        setStatus("rejected");
+      }
+    })();
+  }, [history, movieId]);
 
   switch (status) {
-    case 'idle':
-      return <></>
+    case "idle":
+      return <></>;
 
-    case 'pending':
-      return <MovieDetailsLoader />
+    case "pending":
+      return <MovieDetailsLoader />;
 
-    case 'resolve':
+    case "resolved":
       const {
         id,
         poster_path,
@@ -46,9 +66,9 @@ const MovieDetailsView = () => {
         release_date,
         popularity,
         overview,
-      } = movie
+      } = movie;
 
-      const movieGenres = genres.map((genre) => genre.name).join(', ')
+      const movieGenres = genres.map((genre) => genre.name).join(", ");
 
       return (
         <>
@@ -57,8 +77,8 @@ const MovieDetailsView = () => {
             posterPath={poster_path}
             title={title}
             originalTitle={original_title}
-            genres={movieGenres || '\u2015'}
-            releaseDate={release_date || '\u2015'}
+            genres={movieGenres || "\u2015"}
+            releaseDate={release_date || "\u2015"}
             rating={vote_average}
             voteCount={vote_count}
             popularity={popularity}
@@ -74,11 +94,11 @@ const MovieDetailsView = () => {
             </Route>
           </Suspense>
         </>
-      )
+      );
 
     default:
-      return
+      return;
   }
-}
+};
 
-export default MovieDetailsView
+export default MovieDetailsView;

@@ -1,11 +1,11 @@
-@import 'modern-normalize/modern-normalize.css';
+@import "modern-normalize/modern-normalize.css";
 
 * {
   /* outline: 1px solid red; */
 }
 
 body {
-  font-family: 'Lexend', sans-serif;
+  font-family: "Lexend", sans-serif;
 }
 
 a {
@@ -49,7 +49,7 @@ button {
 }
 
 .colored-toast.swal2-icon-warning {
-  background-color: #f8bb86 !important;
+  background-color: #ffd561 !important;
 }
 
 .colored-toast.swal2-icon-info {
@@ -61,6 +61,10 @@ button {
 }
 
 .colored-toast .swal2-title {
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+
+  font-size: 24px !important;
   color: white;
 }
 
@@ -70,6 +74,15 @@ button {
 
 .colored-toast .swal2-content {
   color: white;
+}
+
+.colored-toast .swal2-html-container {
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+
+  font-weight: 500 !important;
+  font-size: 20px !important;
+  color: #2c2c2c;
 }
 
 .navLink {
@@ -92,7 +105,7 @@ button {
 }
 
 .activeLink::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   bottom: 2px;

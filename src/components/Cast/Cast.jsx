@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import { TmdbAPI } from 'services/apiService'
-import { API } from 'constants/API'
-import { Notify } from 'utils/notifications'
-import defaultImage from 'images/defaultImage.png'
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { TmdbAPI } from "services/apiService";
+import { API } from "constants/API";
+import { Notify } from "utils/notifications";
+import defaultImage from "images/defaultImage.png";
 import {
   List,
   Item,
@@ -12,55 +12,54 @@ import {
   TitleH3,
   Text,
   NotFoundMessage,
-} from './Cast.styled'
-import CastLoader from './CastLoader'
+} from "./Cast.styled";
+import CastLoader from "./CastLoader";
 
 const Cast = () => {
-  const [actors, setActors] = useState([])
-  const [status, setStatus] = useState('idle')
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [actors, setActors] = useState([]);
+  const [status, setStatus] = useState("idle");
+  const [isLoaded, setIsLoaded] = useState(false);
 
-  const { movieId } = useParams()
+  const { movieId } = useParams();
 
   useEffect(() => {
-    setStatus('pending')
-
-    const getMovieCredits = async () => {
+    setStatus("pending");
+    (async () => {
       try {
-        const credits = await TmdbAPI.getMovieCredits(movieId)
+        const cast = await TmdbAPI.getMovieCredits(movieId);
 
-        if (!credits.length) {
-          throw new Error('No credits found')
+        if (!cast.length) {
+          Notify.info("Cast not found");
+
+          throw new Error("Cast not found");
         }
 
-        const movieActors = credits.map((credit) => {
+        const movieActors = cast.map((actor) => {
           return {
-            id: credit.id,
-            name: credit.name,
-            photo: credit.profile_path,
-            character: credit.character,
-          }
-        })
+            id: actor.id,
+            name: actor.name,
+            photo: actor.profile_path,
+            character: actor.character,
+          };
+        });
 
-        setActors(movieActors)
-        setStatus('resolved')
+        setActors(movieActors);
+        setStatus("resolved");
 
-        window.scrollTo({ top: 600, behavior: 'smooth' })
+        window.scrollTo({ top: 600, behavior: "smooth" });
       } catch (error) {
-        setStatus('rejected')
+        console.error(error);
 
-        Notify.error('Cast not found')
+        setStatus("rejected");
       }
-    }
-
-    getMovieCredits()
-  }, [movieId])
+    })();
+  }, [movieId]);
 
   return (
     <>
-      {status === 'pending' && <CastLoader />}
+      {status === "pending" && <CastLoader />}
 
-      {status === 'resolved' && (
+      {status === "resolved" && (
         <List>
           {actors.map(({ id, photo, name, character }) => {
             return (
@@ -80,21 +79,21 @@ const Cast = () => {
                   <TitleH3>Name</TitleH3>
                   <Text>{name}</Text>
                   <TitleH3>Character</TitleH3>
-                  <Text>{character || 'Unknown'}</Text>
+                  <Text>{character || "Unknown"}</Text>
                 </Info>
               </Item>
-            )
+            );
           })}
         </List>
       )}
 
-      {status === 'rejected' && (
+      {status === "rejected" && (
         <NotFoundMessage>
           We don't have any cast for this movie.
         </NotFoundMessage>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Cast
+export default Cast;
