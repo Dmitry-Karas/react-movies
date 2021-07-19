@@ -1,5 +1,11 @@
 @import "modern-normalize/modern-normalize.css";
 
+:root {
+  --color-light: #8c8c8c;
+  --color-dark: #4c4c4c;
+  --color-accent: #ff6b01;
+}
+
 * {
   /* outline: 1px solid red; */
 }
@@ -88,7 +94,7 @@ button {
 .navLink {
   display: block;
   padding: 10px 0;
-  color: #2c2c2c;
+  color: var(--color-dark);
   font-weight: 700;
   text-transform: uppercase;
 
@@ -97,11 +103,11 @@ button {
 
 .activeLink {
   position: relative;
-  color: #ff6b01;
+  color: var(--color-accent);
 }
 
 .navLink:hover {
-  color: #ff6b01;
+  color: var(--color-accent);
 }
 
 .activeLink::after {
@@ -112,7 +118,7 @@ button {
   width: 100%;
   height: 4px;
   border-radius: 4px;
-  background-color: #ff6b01;
+  background-color: var(--color-accent);
 }
 
 .infoLink {
@@ -122,7 +128,7 @@ button {
   width: 130px;
   height: 44px;
 
-  border: 1px solid #2c2c2c;
+  border: 1px solid var(--color-dark);
   border-radius: 4px;
 
   font-weight: 500;
@@ -138,14 +144,14 @@ button {
 }
 
 .infoLink:hover {
-  color: #ff6b01;
-  border-color: #ff6b01;
+  color: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
 .infoLinkActive {
   border: none;
   color: #fff;
-  background-color: #ff6b01;
+  background-color: var(--color-accent);
 }
 
 .infoLinkActive:hover {

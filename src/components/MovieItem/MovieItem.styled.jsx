@@ -1,6 +1,6 @@
-import styled from '@emotion/styled/macro'
+import styled from "@emotion/styled/macro";
 
-export const Item = styled.li``
+export const Item = styled.li``;
 
 export const Image = styled.img`
   width: 100%;
@@ -21,7 +21,7 @@ export const Image = styled.img`
 
     box-shadow: 0px 5px 14px 2px rgba(0, 0, 0, 0.55);
   }
-`
+`;
 
 export const TitleH2 = styled.h2`
   min-height: 28px;
@@ -32,13 +32,13 @@ export const TitleH2 = styled.h2`
   line-height: 14px;
   text-transform: uppercase;
 
-  color: #2c2c2c;
-`
+  color: var(--color-dark);
+`;
 
 export const Info = styled.div`
   display: flex;
   justify-content: space-between;
-`
+`;
 
 export const Genres = styled.p`
   display: inline-block;
@@ -49,8 +49,8 @@ export const Genres = styled.p`
   font-size: 12px;
   line-height: 16px;
 
-  color: #ff6b01;
-`
+  color: var(--color-accent);
+`;
 
 export const Rating = styled.p`
   min-width: 36px;
@@ -64,5 +64,5 @@ export const Rating = styled.p`
   line-height: 16px;
 
   color: #ffffff;
-  background-color: #ff6b01;
-`
+  background-color: var(--color-accent);
+`;

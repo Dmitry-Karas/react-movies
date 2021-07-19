@@ -1,4 +1,4 @@
-import styled from '@emotion/styled/macro'
+import styled from "@emotion/styled/macro";
 
 export const Form = styled.form`
   position: relative;
@@ -8,19 +8,19 @@ export const Form = styled.form`
   margin-bottom: 22px;
 
   text-align: center;
-`
+`;
 
 export const Input = styled.input`
   width: 100%;
   padding-bottom: 10px;
   border: none;
-  border-bottom: 2px solid dimgray;
+  border-bottom: 2px solid var(--color-dark);
   outline: none;
 
   font-weight: 400;
   font-size: 20px;
   line-height: 1.14;
-  color: dimgray;
+  color: var(--color-dark);
   background-color: transparent;
 
   transition: border-color 250ms ease-in-out;
@@ -34,14 +34,14 @@ export const Input = styled.input`
   }
 
   &:focus {
-    border-color: #ff6b01;
+    border-color: var(--color-accent);
 
     &::placeholder {
       opacity: 1;
       transition-delay: 250ms;
     }
   }
-`
+`;
 
 export const Label = styled.label`
   cursor: text;
@@ -52,7 +52,7 @@ export const Label = styled.label`
   font-weight: 500;
   font-size: 20px;
   line-height: 1.14;
-  color: dimgray;
+  color: var(--color-dark);
 
   transform: translate(95px);
   transition: transform 250ms ease-in-out, color 250ms ease-in-out;
@@ -60,10 +60,10 @@ export const Label = styled.label`
   Input:focus + &,
   Input:not(:placeholder-shown) + & {
     cursor: default;
-    color: #ff6b01;
+    color: var(--color-accent);
     transform: translateY(-30px);
   }
-`
+`;
 
 export const Button = styled.button`
   position: absolute;
@@ -78,7 +78,7 @@ export const Button = styled.button`
 
   font-size: 20px;
   font-weight: 500;
-  color: #2c2c2c;
+  color: var(--color-dark);
   background-color: transparent;
 
   transform: translateX(1000px);
@@ -86,7 +86,7 @@ export const Button = styled.button`
     600ms transform cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
   &:hover {
-    color: #ff6b01;
+    color: var(--color-accent);
   }
 
   Input:focus ~ & {
@@ -99,6 +99,6 @@ export const Button = styled.button`
   & svg {
     margin-left: 10px;
 
-    color: #ff6b01;
+    color: var(--color-accent);
   }
-`
+`;
