@@ -55,11 +55,15 @@ const Cast = () => {
     })();
   }, [movieId]);
 
-  return (
-    <>
-      {status === "pending" && <CastLoader />}
+  switch (status) {
+    case "idle":
+      return <></>;
 
-      {status === "resolved" && (
+    case "pending":
+      return <CastLoader />;
+
+    case "resolved":
+      return (
         <List>
           {actors.map(({ id, photo, name, character }) => {
             return (
@@ -85,15 +89,18 @@ const Cast = () => {
             );
           })}
         </List>
-      )}
+      );
 
-      {status === "rejected" && (
+    case "rejected":
+      return (
         <NotFoundMessage>
           We don't have any cast for this movie.
         </NotFoundMessage>
-      )}
-    </>
-  );
+      );
+
+    default:
+      return;
+  }
 };
 
 export default Cast;

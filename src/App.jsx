@@ -1,25 +1,18 @@
 import { lazy, Suspense } from "react";
-import {
-  Route,
-  Switch,
-  useRouteMatch,
-  useHistory,
-  useLocation,
-  Link,
-} from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import AppBar from "./components/AppBar/AppBar";
 import Container from "./components/Container/Container";
 
-const HomeView = lazy(() =>
-  import("./views/HomeView" /* webpackChunkName: "HomeView" */)
+const HomePage = lazy(() =>
+  import("./pages/HomePage" /* webpackChunkName: "HomePage" */)
 );
 
-const MoviesView = lazy(() =>
-  import("./views/MoviesView" /* webpackChunkName: "MoviesView" */)
+const MoviesPage = lazy(() =>
+  import("./pages/MoviesPage" /* webpackChunkName: "MoviesPage" */)
 );
 
-const MovieDetailsView = lazy(() =>
-  import("./views/MovieDetailsView" /* webpackChunkName: "MovieDetailsView" */)
+const MovieDetailsPage = lazy(() =>
+  import("./pages/MovieDetailsPage" /* webpackChunkName: "MovieDetailsPage" */)
 );
 
 const App = () => {
@@ -30,25 +23,25 @@ const App = () => {
         <Switch>
           <Route exact path="/">
             <Container>
-              <HomeView />
+              <HomePage />
             </Container>
           </Route>
 
           <Route exact path="/movies">
             <Container>
-              <MoviesView />
+              <MoviesPage />
             </Container>
           </Route>
 
           <Route path="/movies/:movieId">
             <Container>
-              <MovieDetailsView />
+              <MovieDetailsPage />
             </Container>
           </Route>
 
           <Route>
             <Container>
-              <HomeView />
+              <HomePage />
             </Container>
           </Route>
         </Switch>

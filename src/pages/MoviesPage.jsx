@@ -1,14 +1,10 @@
 import { useState, useEffect } from "react";
-import {
-  Route,
-  useRouteMatch,
-  useHistory,
-  useLocation,
-} from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { TmdbAPI } from "services/apiService";
 import { Notify } from "utils/notifications";
 import SearchForm from "components/SearchForm/SearchForm";
 import MovieList from "components/MovieList/MovieList";
+import MovieListLoader from "components/MovieList/MovieListLoader";
 
 const MoviesView = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -55,13 +51,32 @@ const MoviesView = () => {
     })();
   }, [location.search, searchQuery]);
 
-  return (
-    <>
-      <SearchForm onSubmit={handleSubmit} />
-      {status === "resolved" && <MovieList movies={movies} />}
-      <Route path="movies" />
-    </>
-  );
+  switch (status) {
+    case "idle":
+      return <SearchForm onSubmit={handleSubmit} />;
+
+    case "pending":
+      return (
+        <>
+          <SearchForm onSubmit={handleSubmit} />
+          <MovieListLoader />
+        </>
+      );
+
+    case "resolved":
+      return (
+        <>
+          <SearchForm onSubmit={handleSubmit} />
+          <MovieList movies={movies} />
+        </>
+      );
+
+    case "rejected":
+      return <SearchForm onSubmit={handleSubmit} />;
+
+    default:
+      return;
+  }
 };
 
 export default MoviesView;

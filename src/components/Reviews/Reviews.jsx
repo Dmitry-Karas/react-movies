@@ -58,11 +58,15 @@ const Reviews = () => {
     return avatar;
   };
 
-  return (
-    <>
-      {status === "pending" && <ReviewsLoader />}
+  switch (status) {
+    case "idle":
+      return <></>;
 
-      {status === "resolved" && (
+    case "pending":
+      return <ReviewsLoader />;
+
+    case "resolved":
+      return (
         <ReviewList>
           {movieReviews.map(({ id, author, author_details, content }) => {
             const avatar = getAvatar(author_details.avatar_path);
@@ -83,15 +87,18 @@ const Reviews = () => {
             );
           })}
         </ReviewList>
-      )}
+      );
 
-      {status === "rejected" && (
+    case "rejected":
+      return (
         <NotFoundMessage>
           We don't have any reviews for this movie.
         </NotFoundMessage>
-      )}
-    </>
-  );
+      );
+
+    default:
+      return;
+  }
 };
 
 export default Reviews;

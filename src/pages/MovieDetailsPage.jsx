@@ -31,7 +31,8 @@ const MovieDetailsView = () => {
 
           Notify.warning(
             "404 Page not found",
-            "You have been redirected to the home page"
+            "You have been redirected to the home page",
+            4000
           );
 
           throw new Error("Movie not found");
@@ -55,34 +56,21 @@ const MovieDetailsView = () => {
       return <MovieDetailsLoader />;
 
     case "resolved":
-      const {
-        id,
-        poster_path,
-        original_title,
-        title,
-        vote_average,
-        vote_count,
-        genres,
-        release_date,
-        popularity,
-        overview,
-      } = movie;
-
-      const movieGenres = genres.map((genre) => genre.name).join(", ");
+      const genres = movie.genres.map((genre) => genre.name).join(", ");
 
       return (
         <>
           <MovieDetails
-            id={id}
-            posterPath={poster_path}
-            title={title}
-            originalTitle={original_title}
-            genres={movieGenres || "\u2015"}
-            releaseDate={release_date || "\u2015"}
-            rating={vote_average}
-            voteCount={vote_count}
-            popularity={popularity}
-            overview={overview}
+            id={movie.id}
+            posterPath={movie.poster_path}
+            title={movie.title}
+            originalTitle={movie.original_title}
+            genres={genres || "\u2015"}
+            releaseDate={movie.release_date || "\u2015"}
+            rating={movie.vote_average}
+            voteCount={movie.vote_count}
+            popularity={movie.popularity}
+            overview={movie.overview}
           />
           <Suspense fallback={<h1>loading</h1>}>
             <Route path={`${path}/cast`}>

@@ -1,16 +1,17 @@
-import { Form, Input, Label, Button } from './SearchForm.styled'
-import { BsSearch } from 'react-icons/bs'
+import PropTypes from "prop-types";
+import { Form, Input, Label, Button } from "./SearchForm.styled";
+import { BsSearch } from "react-icons/bs";
 
 const SearchForm = ({ onSubmit }) => {
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const searchInput = e.target.elements.movieSearch
+    const searchInput = e.target.elements.movieSearch;
 
-    onSubmit(searchInput.value)
+    onSubmit(searchInput.value);
 
-    searchInput.value = ''
-  }
+    searchInput.value = "";
+  };
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -27,7 +28,11 @@ const SearchForm = ({ onSubmit }) => {
         <BsSearch />
       </Button>
     </Form>
-  )
-}
+  );
+};
 
-export default SearchForm
+SearchForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
+
+export default SearchForm;

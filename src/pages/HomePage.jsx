@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import { TmdbAPI } from "services/apiService";
 import { Notify } from "utils/notifications";
 import MovieList from "components/MovieList/MovieList";
@@ -10,7 +10,6 @@ const HomeView = () => {
   const [status, setStatus] = useState("idle");
 
   const history = useHistory();
-  const location = useLocation();
   const { isExact } = useRouteMatch();
 
   useEffect(() => {
@@ -19,7 +18,8 @@ const HomeView = () => {
 
       Notify.warning(
         "404 Page not found",
-        "You have been redirected to the home page"
+        "You have been redirected to the home page",
+        4000
       );
     }
 
