@@ -1,9 +1,12 @@
 import { useState, useEffect, lazy, Suspense } from "react";
 import { Route, useParams, useRouteMatch, useHistory } from "react-router-dom";
 import { TmdbAPI } from "services/apiService";
+import { IoArrowBackCircleOutline } from "react-icons/io5";
 import MovieDetails from "components/MovieDetails/MovieDetails";
 import MovieDetailsLoader from "components/MovieDetails/MovieDetailsLoader";
+import IconButton from "components/IconButton/IconButton";
 import { Notify } from "utils/notifications";
+import { BackButton } from "./MovieDetailsPage.styled";
 
 const Cast = lazy(() =>
   import("components/Cast/Cast" /* webpackChunkName: "Cast" */)
@@ -12,12 +15,13 @@ const Reviews = lazy(() =>
   import("components/Reviews/Reviews" /* webpackChunkName: "Reviews" */)
 );
 
-const MovieDetailsView = () => {
+const MovieDetailsPage = () => {
   const [movie, setMovie] = useState(null);
   const [status, setStatus] = useState("idle");
 
   const { movieId } = useParams();
   const { path } = useRouteMatch();
+
   const history = useHistory();
 
   useEffect(() => {
@@ -48,6 +52,10 @@ const MovieDetailsView = () => {
     })();
   }, [history, movieId]);
 
+  const handleBackButtonClick = () => {
+    history.goBack();
+  };
+
   switch (status) {
     case "idle":
       return <></>;
@@ -60,6 +68,12 @@ const MovieDetailsView = () => {
 
       return (
         <>
+          <BackButton>
+            <IconButton onClick={handleBackButtonClick}>
+              <IoArrowBackCircleOutline size="50" />
+              BACK
+            </IconButton>
+          </BackButton>
           <MovieDetails
             id={movie.id}
             posterPath={movie.poster_path}
@@ -89,4 +103,4 @@ const MovieDetailsView = () => {
   }
 };
 
-export default MovieDetailsView;
+export default MovieDetailsPage;

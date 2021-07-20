@@ -6,19 +6,13 @@ import SearchForm from "components/SearchForm/SearchForm";
 import MovieList from "components/MovieList/MovieList";
 import MovieListLoader from "components/MovieList/MovieListLoader";
 
-const MoviesView = () => {
+const MoviesPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [movies, setMovies] = useState([]);
   const [status, setStatus] = useState("idle");
 
   const history = useHistory();
   const location = useLocation();
-
-  const handleSubmit = (query) => {
-    setSearchQuery(query);
-
-    history.push({ ...location, search: `query=${query}` });
-  };
 
   useEffect(() => {
     const query = new URLSearchParams(location.search).get("query");
@@ -51,6 +45,12 @@ const MoviesView = () => {
     })();
   }, [location.search, searchQuery]);
 
+  const handleSubmit = (query) => {
+    setSearchQuery(query);
+
+    history.push({ ...location, search: `query=${query}` });
+  };
+
   switch (status) {
     case "idle":
       return <SearchForm onSubmit={handleSubmit} />;
@@ -79,4 +79,4 @@ const MoviesView = () => {
   }
 };
 
-export default MoviesView;
+export default MoviesPage;

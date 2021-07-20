@@ -1,13 +1,10 @@
 import { useState } from "react";
 import { NavLink, useRouteMatch } from "react-router-dom";
 import { API } from "constants/API";
-import { IoArrowBackCircleOutline } from "react-icons/io5";
 import PropTypes from "prop-types";
 import defaultImage from "images/defaultImage.png";
-import IconButton from "components/IconButton/IconButton";
 import {
   MovieWrapper,
-  ButtonWrapper,
   Image,
   ContentWrapper,
   MovieTitle,
@@ -39,12 +36,6 @@ const MovieDetails = ({
 
   return (
     <>
-      <ButtonWrapper>
-        <IconButton>
-          <IoArrowBackCircleOutline size="50" />
-          BACK
-        </IconButton>
-      </ButtonWrapper>
       <MovieWrapper>
         <Image
           src={

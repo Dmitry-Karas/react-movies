@@ -4,15 +4,17 @@ import AppBar from "./components/AppBar/AppBar";
 import Container from "./components/Container/Container";
 
 const HomePage = lazy(() =>
-  import("./pages/HomePage" /* webpackChunkName: "HomePage" */)
+  import("./pages/HomePage/HomePage" /* webpackChunkName: "HomePage" */)
 );
 
 const MoviesPage = lazy(() =>
-  import("./pages/MoviesPage" /* webpackChunkName: "MoviesPage" */)
+  import("./pages/MoviesPage/MoviesPage" /* webpackChunkName: "MoviesPage" */)
 );
 
 const MovieDetailsPage = lazy(() =>
-  import("./pages/MovieDetailsPage" /* webpackChunkName: "MovieDetailsPage" */)
+  import(
+    "./pages/MovieDetailsPage/MovieDetailsPage" /* webpackChunkName: "MovieDetailsPage" */
+  )
 );
 
 const App = () => {

@@ -5,7 +5,7 @@ import { Notify } from "utils/notifications";
 import MovieList from "components/MovieList/MovieList";
 import MovieListLoader from "components/MovieList/MovieListLoader";
 
-const HomeView = () => {
+const HomePage = () => {
   const [movies, setMovies] = useState([]);
   const [status, setStatus] = useState("idle");
 
@@ -53,4 +53,4 @@ const HomeView = () => {
   }
 };
 
-export default HomeView;
+export default HomePage;

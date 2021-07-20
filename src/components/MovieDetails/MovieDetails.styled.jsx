@@ -18,13 +18,6 @@ export const MovieWrapper = styled.div`
   }
 `;
 
-export const ButtonWrapper = styled.div`
-  margin-top: -40px;
-  margin-bottom: 10px;
-
-  color: var(--color-dark);
-`;
-
 export const Image = styled.img`
   width: 300px;
   height: 450px;
