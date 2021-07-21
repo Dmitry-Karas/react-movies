@@ -13,7 +13,7 @@ import {
   ReviewContent,
   NotFoundMessage,
 } from "./Reviews.styled";
-import ReviewsLoader from "./ReviewsLoader";
+import ReviewsLoader from "../Loaders/ReviewsLoader/ReviewsLoader";
 
 const Reviews = () => {
   const [movieReviews, setMovieReviews] = useState([]);

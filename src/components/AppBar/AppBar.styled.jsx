@@ -1,5 +1,6 @@
-import styled from '@emotion/styled/macro'
-import tapeBg from 'images/tape-bg.png'
+import styled from "@emotion/styled/macro";
+import tapeBg from "images/tape-bg.png";
+import vintageBg from "images/vintage-bg-80.gif";
 
 export const Header = styled.header`
   /* position: sticky; */
@@ -9,12 +10,11 @@ export const Header = styled.header`
   display: flex;
   align-items: center;
   height: 80px;
-  margin-bottom: 50px;
   box-shadow: 0 10px 5px 0 rgb(0 0 0 / 60%), 0 2px 5px 0 rgb(0 0 0 /14%),
     0 2px 10px -1px rgb(0 0 0 / 12%);
   background-color: #fff;
 
-  background-image: url(${tapeBg});
-  background-size: 120px;
-  background-position-x: 40px;
-`
+  background-image: url(${tapeBg}), url(${vintageBg});
+  background-size: 120px 80px;
+  background-position: 40px;
+`;

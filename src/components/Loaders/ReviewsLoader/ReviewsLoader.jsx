@@ -1,4 +1,4 @@
-import ContentLoader from 'react-content-loader'
+import ContentLoader from "react-content-loader";
 
 const ReviewsLoader = (props) => (
   <ContentLoader
@@ -27,6 +27,6 @@ const ReviewsLoader = (props) => (
     <rect x="0" y="300" rx="3" ry="3" width="950" height="6" />
     <rect x="0" y="320" rx="3" ry="3" width="400" height="6" />
   </ContentLoader>
-)
+);
 
-export default ReviewsLoader
+export default ReviewsLoader;

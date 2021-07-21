@@ -2,6 +2,8 @@ import { lazy, Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
 import AppBar from "./components/AppBar/AppBar";
 import Container from "./components/Container/Container";
+import Section from "components/Section/Section";
+import PageLoader from "components/Loaders/PageLoader/PageLoader";
 
 const HomePage = lazy(() =>
   import("./pages/HomePage/HomePage" /* webpackChunkName: "HomePage" */)
@@ -21,29 +23,37 @@ const App = () => {
   return (
     <>
       <AppBar />
-      <Suspense fallback={<h1>loading</h1>}>
+      <Suspense fallback={<PageLoader />}>
         <Switch>
           <Route exact path="/">
             <Container>
-              <HomePage />
+              <Section>
+                <HomePage />
+              </Section>
             </Container>
           </Route>
 
           <Route exact path="/movies">
             <Container>
-              <MoviesPage />
+              <Section>
+                <MoviesPage />
+              </Section>
             </Container>
           </Route>
 
           <Route path="/movies/:movieId">
             <Container>
-              <MovieDetailsPage />
+              <Section>
+                <MovieDetailsPage />
+              </Section>
             </Container>
           </Route>
 
           <Route>
             <Container>
-              <HomePage />
+              <Section>
+                <HomePage />
+              </Section>
             </Container>
           </Route>
         </Switch>

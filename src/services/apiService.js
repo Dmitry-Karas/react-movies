@@ -1,68 +1,68 @@
-import axios from 'axios'
-import { API } from '../constants/API'
+import axios from "axios";
+import { API } from "../constants/API";
 
 export class TmdbAPI {
-  static async getTrendingMovies() {
+  static async getTrendingMovies(page) {
     try {
       const { data } = await axios.get(
-        `${API.BASE_URL}/trending/movie/week?api_key=${API.KEY}`,
-      )
+        `${API.BASE_URL}/trending/movie/week?api_key=${API.KEY}&page=${page}`
+      );
 
-      return data.results
+      return data;
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
-  static async getMoviesByQuery(query) {
+  static async getMoviesByQuery(query, page) {
     try {
       const { data } = await axios.get(
-        `${API.BASE_URL}/search/movie/?api_key=${API.KEY}&query=${query}`,
-      )
+        `${API.BASE_URL}/search/movie/?api_key=${API.KEY}&query=${query}&page=${page}`
+      );
 
-      return data.results
+      return data;
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
   static async getMovieDetails(id) {
     try {
       const { data } = await axios.get(
-        `${API.BASE_URL}/movie/${id}?api_key=${API.KEY}`,
-      )
+        `${API.BASE_URL}/movie/${id}?api_key=${API.KEY}`
+      );
 
-      return data
+      return data;
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
   static async getMovieCredits(id) {
     try {
       const { data } = await axios.get(
-        `${API.BASE_URL}/movie/${id}/credits?api_key=${API.KEY}`,
-      )
+        `${API.BASE_URL}/movie/${id}/credits?api_key=${API.KEY}`
+      );
 
-      return data.cast
+      return data.cast;
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
   static async getMovieReviews(id) {
     try {
       const { data } = await axios.get(
-        `${API.BASE_URL}/movie/${id}/reviews?api_key=${API.KEY}`,
-      )
+        `${API.BASE_URL}/movie/${id}/reviews?api_key=${API.KEY}`
+      );
 
-      return data.results
+      return data.results;
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
   static async getGenreList() {
-    return await axios(`${API.BASE_URL}/genre/movie/list?api_key=${API.KEY}`)
+    return await axios(`${API.BASE_URL}/genre/movie/list?api_key=${API.KEY}`);
   }
 }
