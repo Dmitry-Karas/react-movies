@@ -17,7 +17,7 @@ export class TmdbAPI {
   static async getMoviesByQuery(query, page) {
     try {
       const { data } = await axios.get(
-        `${API.BASE_URL}/search/movie/?api_key=${API.KEY}&query=${query}&page=${page}`
+        `${API.BASE_URL}/search/movie?api_key=${API.KEY}&query=${query}&page=${page}`
       );
 
       return data;
