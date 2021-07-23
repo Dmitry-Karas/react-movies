@@ -1,11 +1,12 @@
 import { useState, useEffect, lazy, Suspense } from "react";
 import { Route, useParams, useRouteMatch, useHistory } from "react-router-dom";
-import { TmdbAPI } from "services/apiService";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
+import { TmdbAPI } from "services/apiService";
+import { Notify } from "utils/notifications";
 import MovieDetails from "components/MovieDetails/MovieDetails";
 import MovieDetailsLoader from "components/MovieDetails/MovieDetailsLoader";
 import IconButton from "components/IconButton/IconButton";
-import { Notify } from "utils/notifications";
+import useGoBack from "hooks/useGoBack";
 import { BackButton } from "./MovieDetailsPage.styled";
 
 const Cast = lazy(() =>
@@ -21,8 +22,8 @@ const MovieDetailsPage = () => {
 
   const { movieId } = useParams();
   const { path } = useRouteMatch();
-
   const history = useHistory();
+  const goBack = useGoBack();
 
   useEffect(() => {
     setStatus("pending");
@@ -52,10 +53,6 @@ const MovieDetailsPage = () => {
     })();
   }, [history, movieId]);
 
-  const handleBackButtonClick = () => {
-    history.goBack();
-  };
-
   switch (status) {
     case "idle":
       return <></>;
@@ -69,7 +66,7 @@ const MovieDetailsPage = () => {
       return (
         <>
           <BackButton>
-            <IconButton onClick={handleBackButtonClick}>
+            <IconButton onClick={goBack}>
               <IoArrowBackCircleOutline size="50" />
               BACK
             </IconButton>
