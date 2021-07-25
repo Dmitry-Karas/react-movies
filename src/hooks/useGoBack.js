@@ -7,7 +7,7 @@ const useGoBack = () => {
   const routerState = useRef(location.state?.from).current;
 
   const goBack = () => {
-    history.push(routerState || "/");
+    history.push(routerState ?? "/");
   };
 
   return goBack;

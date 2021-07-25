@@ -1,4 +1,4 @@
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { API } from "constants/API";
 import PropTypes from "prop-types";
@@ -6,17 +6,16 @@ import defaultImage from "images/defaultImage.png";
 import { Item, Image, TitleH2, Info, Genres, Rating } from "./MovieItem.styled";
 
 const MovieItem = ({ id, posterPath, title, genres, releaseDate, rating }) => {
-  const [isPosterLoaded, setIsLoaded] = useState(false);
+  const [isPosterLoaded, setIsPosterLoaded] = useState(false);
 
   const location = useLocation();
-  const params = useParams();
 
   return (
     <Item>
       <Link
         to={{
           pathname: `/movies/${id}`,
-          state: { from: location, search: params },
+          state: { from: location },
         }}
       >
         <Image
@@ -26,7 +25,7 @@ const MovieItem = ({ id, posterPath, title, genres, releaseDate, rating }) => {
               : defaultImage
           }
           alt={title}
-          onLoad={() => setIsLoaded(true)}
+          onLoad={() => setIsPosterLoaded(true)}
           width="300"
           height="450"
         />
