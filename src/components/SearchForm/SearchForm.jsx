@@ -1,8 +1,15 @@
 import PropTypes from "prop-types";
 import { Form, Input, Label, Button } from "./SearchForm.styled";
 import { BsSearch } from "react-icons/bs";
+import { useState } from "react";
 
 const SearchForm = ({ onSubmit }) => {
+  const [value, setValue] = useState("");
+
+  const handleInputChange = (e) => {
+    setValue(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -10,7 +17,7 @@ const SearchForm = ({ onSubmit }) => {
 
     onSubmit(searchInput.value);
 
-    searchInput.value = "";
+    setValue("");
   };
 
   return (
@@ -18,13 +25,14 @@ const SearchForm = ({ onSubmit }) => {
       <Input
         type="text"
         name="movieSearch"
+        value={value}
         id="movieSearch"
         placeholder="The Fast and the Furious"
         autoComplete="off"
+        onChange={handleInputChange}
       />
       <Label htmlFor="movieSearch">Enter the movie name</Label>
-      <Button type="submit">
-        Search
+      <Button type="submit" disabled={!value}>
         <BsSearch />
       </Button>
     </Form>

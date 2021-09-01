@@ -54,7 +54,6 @@ export const Label = styled.label`
   line-height: 1.14;
   color: var(--color-dark);
 
-  transform: translate(95px);
   transition: transform 250ms ease-in-out, color 250ms ease-in-out;
 
   Input:focus + &,
@@ -71,9 +70,9 @@ export const Button = styled.button`
   right: 0;
   display: flex;
   align-items: center;
-  padding: 10px;
-  opacity: 0;
-  pointer-events: none;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 50px;
   border: none;
 
   font-size: 20px;
@@ -81,24 +80,18 @@ export const Button = styled.button`
   color: var(--color-dark);
   background-color: transparent;
 
-  transform: translateX(1000px);
-  transition: 250ms opacity ease-in-out, 250ms color ease,
-    600ms transform cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
-  &:hover {
-    color: var(--color-accent);
+  &:disabled {
+    pointer-events: none;
   }
 
-  Input:focus ~ & {
-    opacity: 1;
-    pointer-events: all;
-    transform: translateX(0);
-    /* transition-delay: 250ms; */
+  &:hover:not(:disabled) svg {
+    color: var(--color-accent);
+    transform: rotate(90deg) scale(1.4);
   }
 
   & svg {
     margin-left: 10px;
 
-    color: var(--color-accent);
+    transition: color 250ms ease, transform 250ms ease;
   }
 `;
