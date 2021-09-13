@@ -4,6 +4,7 @@ export const List = styled.ul`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 20px 10px;
+  scroll-margin: 30px;
 `;
 
 export const Item = styled.li`
@@ -14,9 +15,17 @@ export const Item = styled.li`
 `;
 
 export const Image = styled.img`
-  height: 260px;
+  width: 100%;
   object-fit: cover;
   border-bottom: 1px solid #ccc;
+
+  @media screen and (max-width: 767px) {
+    height: 430px;
+  }
+
+  @media screen and (min-width: 768px) {
+    height: 280px;
+  }
 `;
 
 export const Info = styled.div`

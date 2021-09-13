@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { TmdbAPI } from "services/apiService";
 import { API } from "constants/API";
@@ -14,6 +14,7 @@ import {
   NotFoundMessage,
 } from "./Reviews.styled";
 import ReviewsLoader from "../Loaders/ReviewsLoader/ReviewsLoader";
+import { scrollToRef } from "utils/scrollTo";
 
 const Reviews = () => {
   const [movieReviews, setMovieReviews] = useState([]);
@@ -22,8 +23,11 @@ const Reviews = () => {
 
   const { movieId } = useParams();
 
+  const reviewsListRef = useRef(null);
+
   useEffect(() => {
     setStatus("pending");
+
     (async () => {
       try {
         const reviews = await TmdbAPI.getMovieReviews(movieId);
@@ -37,7 +41,7 @@ const Reviews = () => {
         setMovieReviews(reviews);
         setStatus("resolved");
 
-        window.scrollTo({ top: 600, behavior: "smooth" });
+        scrollToRef(reviewsListRef);
       } catch (error) {
         console.error(error);
 
@@ -67,7 +71,7 @@ const Reviews = () => {
 
     case "resolved":
       return (
-        <ReviewList>
+        <ReviewList ref={reviewsListRef}>
           {movieReviews.map(({ id, author, author_details, content }) => {
             const avatar = getAvatar(author_details.avatar_path);
 

@@ -14,15 +14,18 @@ import {
 } from "./Pagination.styled";
 import { TiArrowLeft, TiArrowRight } from "react-icons/ti";
 import { IoEllipsisHorizontalSharp } from "react-icons/io5";
+import { useBreakpoints } from "hooks/useBreakpoints";
 
 const Pagination = ({ initialPage, pageCount, onClick }) => {
+  const { isMobile } = useBreakpoints();
+
   return (
     <ReactPaginate
       initialPage={initialPage - 1}
       disableInitialCallback={true}
       pageCount={pageCount}
-      pageRangeDisplayed={5}
-      marginPagesDisplayed={1}
+      pageRangeDisplayed={isMobile ? 1 : 5}
+      marginPagesDisplayed={isMobile ? 1 : 1}
       previousLabel={<TiArrowLeft size={28} />}
       nextLabel={<TiArrowRight size={28} />}
       breakLabel={<IoEllipsisHorizontalSharp size={24} />}

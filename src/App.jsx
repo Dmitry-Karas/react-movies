@@ -26,35 +26,35 @@ const App = () => {
       <Suspense fallback={<PageLoader />}>
         <Switch>
           <Route exact path="/">
-            <Container>
-              <Section>
+            <Section>
+              <Container>
                 <HomePage />
-              </Section>
-            </Container>
+              </Container>
+            </Section>
           </Route>
 
           <Route exact path="/movies">
-            <Container>
-              <Section>
+            <Section>
+              <Container>
                 <MoviesPage />
-              </Section>
-            </Container>
+              </Container>
+            </Section>
           </Route>
 
           <Route path="/movies/:movieId">
-            <Container>
-              <Section>
+            <Section>
+              <Container>
                 <MovieDetailsPage />
-              </Section>
-            </Container>
+              </Container>
+            </Section>
           </Route>
 
           <Route>
-            <Container>
-              <Section>
+            <Section>
+              <Container>
                 <HomePage />
-              </Section>
-            </Container>
+              </Container>
+            </Section>
           </Route>
         </Switch>
       </Suspense>

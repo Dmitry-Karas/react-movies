@@ -2,10 +2,12 @@ import styled from "@emotion/styled/macro";
 
 export const ReviewList = styled.ul`
   height: 100vh;
+  scroll-margin: 30px;
 `;
 
 export const ReviewItem = styled.li`
   border-bottom: 2px solid lightgrey;
+  overflow: auto;
 
   &:not(:last-child) {
     margin-bottom: 20px;

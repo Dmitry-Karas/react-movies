@@ -4,7 +4,7 @@ export const Form = styled.form`
   position: relative;
   display: flex;
   margin: 0 auto;
-  width: 400px;
+  max-width: 400px;
   margin-bottom: 22px;
 
   text-align: center;
@@ -85,13 +85,12 @@ export const Button = styled.button`
   }
 
   &:hover:not(:disabled) svg {
+    transform: rotate(-280deg) scale(1.4);
     color: var(--color-accent);
-    transform: rotate(90deg) scale(1.4);
   }
 
   & svg {
     margin-left: 10px;
-
-    transition: color 250ms ease, transform 250ms ease;
+    transition: color 250ms ease, transform 550ms ease;
   }
 `;

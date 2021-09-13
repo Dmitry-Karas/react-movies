@@ -2,7 +2,6 @@ import styled from "@emotion/styled/macro";
 
 export const MovieWrapper = styled.div`
   position: relative;
-  display: flex;
   margin-bottom: 40px;
 
   &::after {
@@ -16,14 +15,25 @@ export const MovieWrapper = styled.div`
 
     background-color: lightgray;
   }
+
+  @media screen and (min-width: 768px) {
+    display: flex;
+  }
 `;
 
 export const Image = styled.img`
-  width: 300px;
-  height: 450px;
   object-fit: cover;
-  margin-right: 50px;
   border-radius: 5px;
+
+  @media screen and (max-width: 767px) {
+    margin-bottom: 20px;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 300px;
+    height: 450px;
+    margin-right: 50px;
+  }
 `;
 
 export const ContentWrapper = styled.div`
@@ -72,6 +82,7 @@ export const Rating = styled.span`
 
 export const Content = styled.p`
   color: var(--color-dark);
+  width: 100%;
 `;
 
 export const TitleH3 = styled.h3`

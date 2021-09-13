@@ -4,7 +4,7 @@ export const Item = styled.li``;
 
 export const Image = styled.img`
   width: 100%;
-  height: 298px;
+
   margin-bottom: 10px;
   border-radius: 5px;
   object-fit: cover;
@@ -20,6 +20,18 @@ export const Image = styled.img`
     transform: scale(1.05) translateY(-5px);
 
     box-shadow: 0px 5px 14px 2px rgba(0, 0, 0, 0.55);
+  }
+
+  @media screen and (max-width: 767px) {
+    min-height: 420px;
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    min-height: 450px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    min-height: 310px;
   }
 `;
 

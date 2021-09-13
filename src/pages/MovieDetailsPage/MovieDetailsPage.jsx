@@ -4,7 +4,7 @@ import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { TmdbAPI } from "services/apiService";
 import { Notify } from "utils/notifications";
 import MovieDetails from "components/MovieDetails/MovieDetails";
-import MovieDetailsLoader from "components/MovieDetails/MovieDetailsLoader";
+import MovieDetailsLoader from "components/Loaders/MovieDetailsLoader/MovieDetailsLoader";
 import IconButton from "components/IconButton/IconButton";
 import useGoBack from "hooks/useGoBack";
 import { BackButton } from "./MovieDetailsPage.styled";

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { TmdbAPI } from "services/apiService";
 import { API } from "constants/API";
@@ -13,7 +13,8 @@ import {
   Text,
   NotFoundMessage,
 } from "./Cast.styled";
-import CastLoader from "./CastLoader";
+import { scrollToRef } from "utils/scrollTo";
+import CastLoader from "../Loaders/CastLoader/CastLoader";
 
 const Cast = () => {
   const [actors, setActors] = useState([]);
@@ -22,8 +23,11 @@ const Cast = () => {
 
   const { movieId } = useParams();
 
+  const castListRef = useRef(null);
+
   useEffect(() => {
     setStatus("pending");
+
     (async () => {
       try {
         const cast = await TmdbAPI.getMovieCredits(movieId);
@@ -46,7 +50,7 @@ const Cast = () => {
         setActors(movieActors);
         setStatus("resolved");
 
-        window.scrollTo({ top: 600, behavior: "smooth" });
+        scrollToRef(castListRef);
       } catch (error) {
         console.error(error);
 
@@ -64,7 +68,7 @@ const Cast = () => {
 
     case "resolved":
       return (
-        <List>
+        <List ref={castListRef}>
           {actors.map(({ id, photo, name, character }) => {
             return (
               <Item key={id}>
